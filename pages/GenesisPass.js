@@ -6,9 +6,29 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { TitleText } from '../components';
+import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi';
+
+import { mainnet, arbitrum } from '@wagmi/core/chains';
 
 
 const SIGNING_SERVER_URL = 'https://redeemer.upstreet.ai/';
+
+
+const projectId = '10dd96df3c1b27c7c028d125071be835';
+
+// 2. Create wagmiConfig
+// const metadata = {
+//   name: 'Web3Modal',
+//   description: 'Web3Modal Example',
+//   url: 'https://web3modal.com',
+//   icons: ['https://avatars.githubusercontent.com/u/37784886'],
+// };
+
+// const chains = [mainnet, arbitrum];
+// const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
+
+// // 3. Create modal
+// const modal = createWeb3Modal({ wagmiConfig, projectId, chains });
 
 export default function Mint() {
   const [onboard, setOnboard] = useState(null);
@@ -272,7 +292,7 @@ export default function Mint() {
                   <TitleText title={<>Pass Token for Blockify</>} textStyles="text-center" />
                   <img src="./Genesis Pass.png" alt="" className="genesis_img" />
 
-                  <w3m-button  />
+                  {/* <w3m-button  /> */}
                   {/* <button
                     className="bg-[#000000] text-[#ffffff] mt-6 mb-2 border-2 border-[#5F2EEA] px-8 py-4 text-xl font-bold hover:bg-[#5F2EEA] hover:text-[#ffffff] genesis_pass_connect_btn"
                     onClick={handleConnectWallet}
