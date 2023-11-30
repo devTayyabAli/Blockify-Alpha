@@ -2,7 +2,7 @@ import React from 'react';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { TitleText } from '../components';
-import Genesis from '../Assets/Genesis pass.png'
+
 
 
 const Mint=() =>(
@@ -12,7 +12,7 @@ const Mint=() =>(
   </h1>
   <TitleText title={<>Pass Token for Blockify</>} textStyles="text-center" />
 
-  <img src="/cover.png" alt="" className="genesis_img" />
+  <img src="/Genesis.png" alt="" className="genesis_img" />
 
   <w3m-button />
   {/* <button
