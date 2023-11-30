@@ -39,7 +39,6 @@ const Hero = () => (
           alt="hero_cover"
           className="w-full sm:h-[500px] h-[350px] object-cover rounded-tl-[140px] z-10 relative"
         />
-  <img src="./Genesis Pass.png" alt="" className="genesis_img" />
 
         <a href="#explore">
           <div className="w-full flex justify-end sm:-mt-[70px] -mt-[50px] pr-[40px] relative z-10">
