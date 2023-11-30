@@ -21,7 +21,7 @@ const metadata = {
 }
 
 const chains = [mainnet, arbitrum]
-const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata })
+const wagmiConfig = defaultWagmiConfig({ chains, projectId })
 
 // 3. Create modal
 const modal = createWeb3Modal({ wagmiConfig, projectId, chains })

@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { TitleText } from '../components';
 
+
 const SIGNING_SERVER_URL = 'https://redeemer.upstreet.ai/';
 
 export default function Mint() {
@@ -15,6 +16,7 @@ export default function Mint() {
   const [selectedGenesis, setSelectedGenesis] = useState(null);
   const [tokenData, setTokenData] = useState(null);
   const [signature, setSignature] = useState(null);
+
 
   useEffect(() => {
     const onboardData = initOnboard({
@@ -64,97 +66,97 @@ export default function Mint() {
     }
   };
 
-  const setValidTokens = async (address, signature) => {
-    fetch(SIGNING_SERVER_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ address, signature }),
-    })
-      .then((res) => res.json())
-      .then(async (data) => {
-        const { tokens } = data
-        const validTokens = await checkTokenlist(tokens)
-        setTokenData(validTokens)
-      });
-  }
+  // const setValidTokens = async (address, signature) => {
+  //   fetch(SIGNING_SERVER_URL, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ address, signature }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then(async (data) => {
+  //       const { tokens } = data
+  //       const validTokens = await checkTokenlist(tokens)
+  //       setTokenData(validTokens)
+  //     });
+  // }
 
-  const redeemPass = async () => {
-    if (!selectedGenesis && selectedGenesis !== 0) {
-      alert('Please select a token to redeem');
-      return;
-    }
-    console.log("before", walletAddress, signature, selectedGenesis)
-    fetch(SIGNING_SERVER_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ address: walletAddress, signature, tokenId: selectedGenesis }),
-    })
-      .then((res) => res.json())
-      .then(async (data) => {
-        console.log('mintToken data', data);
-        const { signature, signer } = data
-        if (!await isApprovedForAll()) {
-          const approveStatus = await setApprove();
-          if (approveStatus.status) {
-            toast.info(approveStatus.message, {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-          } else {
-            toast.error(approveStatus.message, {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-            return;
-          }
-        }
+  // const redeemPass = async () => {
+  //   if (!selectedGenesis && selectedGenesis !== 0) {
+  //     alert('Please select a token to redeem');
+  //     return;
+  //   }
+  //   console.log("before", walletAddress, signature, selectedGenesis)
+  //   fetch(SIGNING_SERVER_URL, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ address: walletAddress, signature, tokenId: selectedGenesis }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then(async (data) => {
+  //       console.log('mintToken data', data);
+  //       const { signature, signer } = data
+  //       if (!await isApprovedForAll()) {
+  //         const approveStatus = await setApprove();
+  //         if (approveStatus.status) {
+  //           toast.info(approveStatus.message, {
+  //             position: "top-right",
+  //             autoClose: 5000,
+  //             hideProgressBar: false,
+  //             closeOnClick: true,
+  //             pauseOnHover: true,
+  //             draggable: true,
+  //             progress: undefined,
+  //             theme: "colored",
+  //           });
+  //         } else {
+  //           toast.error(approveStatus.message, {
+  //             position: "top-right",
+  //             autoClose: 5000,
+  //             hideProgressBar: false,
+  //             closeOnClick: true,
+  //             pauseOnHover: true,
+  //             draggable: true,
+  //             progress: undefined,
+  //             theme: "colored",
+  //           });
+  //           return;
+  //         }
+  //       }
 
-        console.log("etner redeem")
-        const redeemStatus = await redeem(selectedGenesis, walletAddress, signer, signature);
-        if (redeemStatus.status) {
-          toast.info(redeemStatus.message, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-          });
-        } else {
-          toast.error(redeemStatus.message, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-          });
-          return;
-        }
-        console.log("After redeem")
-        await setValidTokens(walletAddress, signature)
-      });
-  };
+  //       console.log("etner redeem")
+  //       const redeemStatus = await redeem(selectedGenesis, walletAddress, signer, signature);
+  //       if (redeemStatus.status) {
+  //         toast.info(redeemStatus.message, {
+  //           position: "top-right",
+  //           autoClose: 5000,
+  //           hideProgressBar: false,
+  //           closeOnClick: true,
+  //           pauseOnHover: true,
+  //           draggable: true,
+  //           progress: undefined,
+  //           theme: "colored",
+  //         });
+  //       } else {
+  //         toast.error(redeemStatus.message, {
+  //           position: "top-right",
+  //           autoClose: 5000,
+  //           hideProgressBar: false,
+  //           closeOnClick: true,
+  //           pauseOnHover: true,
+  //           draggable: true,
+  //           progress: undefined,
+  //           theme: "colored",
+  //         });
+  //         return;
+  //       }
+  //       console.log("After redeem")
+  //       await setValidTokens(walletAddress, signature)
+  //     });
+  // };
 
   const disconnectWallet = async () => {
     onboard.walletReset();
@@ -163,22 +165,22 @@ export default function Mint() {
 
   const eligibleForClaim = tokenData && tokenData.length > 0;
 
-  console.log('tokenData', tokenData)
+  // console.log('tokenData', tokenData)
 
   return (
     <>
       <div className="min-h-screen h-full w-full overflow-hidden flex flex-col items-center justify-center bg-brand-background ">
-        {walletAddress && (
+        {/* {walletAddress && (
           <button
             className="absolute top-4 right-2 w-60 bg-gradient-to-br from-blue-500 to-blue-600 shadow-sm px-1 py-1 rounded-md text-white hover:shadow-pink-400/50 tracking-wide"
             onClick={disconnectWallet}
           >
             {walletAddress.slice(0, 10) + '...' + walletAddress.slice(-6)}
           </button>
-        )}
+        )} */}
         <div className="relative w-full h-full flex flex-col items-center justify-center">
           <div className="flex flex-col items-center justify-center h-full w-full px-2 md:px-10">
-            {walletAddress ? (
+            {/* {walletAddress ? (
               <>
                 <div className="z-1 md:max-w-3xl w-full glass filter backdrop-blur-sm py-4 rounded-md px-20 md:px-20 flex flex-col items-center">
                   {eligibleForClaim ? (
@@ -259,6 +261,18 @@ export default function Mint() {
                   <img src="./Genesis Pass.png" alt="" className="genesis_img" />
 
                   <w3m-button  />
+
+                </div>
+              </>
+            )} */}
+            <div className="md:max-w-3xl glass filter backdrop-blur-sm py-4 rounded-md px-20 md:px-20 flex flex-col items-center redeem_div">
+                  <h1 className="uppercase font-bold text-white text-xl md:text-xl bg-gradient-to-br bg-clip-text mt-3 top_title_withoutAddress">
+                    Claim your genesis pass
+                  </h1>
+                  <TitleText title={<>Pass Token for Blockify</>} textStyles="text-center" />
+                  <img src="./Genesis Pass.png" alt="" className="genesis_img" />
+
+                  <w3m-button  />
                   {/* <button
                     className="bg-[#000000] text-[#ffffff] mt-6 mb-2 border-2 border-[#5F2EEA] px-8 py-4 text-xl font-bold hover:bg-[#5F2EEA] hover:text-[#ffffff] genesis_pass_connect_btn"
                     onClick={handleConnectWallet}
@@ -266,8 +280,6 @@ export default function Mint() {
                     Connect Wallet
                   </button> */}
                 </div>
-              </>
-            )}
           </div>
           <div className="gradient-03 background-genesis_div" />
         </div>
