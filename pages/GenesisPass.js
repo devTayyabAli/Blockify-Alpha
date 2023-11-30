@@ -12,7 +12,7 @@ const Mint=() =>(
   </h1>
   <TitleText title={<>Pass Token for Blockify</>} textStyles="text-center" />
 
-  <img src="/get-started.png" alt="" className="genesis_img" />
+  <img src="/cover.png" alt="" className="genesis_img" />
 
   <w3m-button />
   {/* <button
